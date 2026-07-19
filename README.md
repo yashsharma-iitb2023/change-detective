@@ -13,6 +13,18 @@ is the product.
 
 ---
 
+## Demo
+
+<!-- PASTE THE DEMO VIDEO LINK ON THE LINE BELOW.
+     Edit this README on github.com, drag `demo.mp4` (repo root, ~8MB) into the editor,
+     and GitHub replaces the drop with a https://github.com/user-attachments/assets/… URL
+     that renders as an inline player. Put that URL on its own line here.
+     (Alternative: a linked thumbnail to a YouTube/Loom clip.) -->
+
+_Demo video coming soon._
+
+---
+
 ## What it does
 
 - **Trigger** — a URL, a Run button, and toggles to exclude the header/footer from analysis.
