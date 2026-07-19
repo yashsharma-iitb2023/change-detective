@@ -9,7 +9,7 @@ export function SectionAddedBlock({ block }: { block: RenderBlock }) {
       icon={PlusCircle}
       tone="positive"
       region={block.region}
-      section={block.section}
+      title={block.title}
       changeType={block.changeType}
       significance={block.significance}
     >

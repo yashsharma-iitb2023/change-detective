@@ -8,7 +8,7 @@ export function FunctionalChangeBlock({ block }: { block: RenderBlock }) {
       icon={LayoutTemplate}
       tone="neutral"
       region={block.region}
-      section={block.section}
+      title={block.title}
       changeType={block.changeType}
       significance={block.significance}
     >

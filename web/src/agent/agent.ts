@@ -58,6 +58,7 @@ const INJECTION_GUARD =
 interface DeliveredBlock {
   changeIndex: number | null;
   type: z.infer<typeof BlockTypeSchema>;
+  title?: string;
   significance: string;
 }
 
@@ -104,6 +105,14 @@ function defaultBlockType(c: Change): z.infer<typeof BlockTypeSchema> {
   if (c.before === null) return "section_added";
   if (c.after === null) return "section_removed";
   return "content_change";
+}
+
+/** Title used when the model didn't supply one (or on the deterministic fallback path). */
+function defaultTitle(c: Change): string {
+  if (c.kind === "functional") return "Layout changed";
+  if (c.before === null) return "New section added";
+  if (c.after === null) return "Section removed";
+  return "Content updated";
 }
 
 /** Redact functional changes' opaque fingerprint hashes before anything (model or UI) sees them. */
@@ -213,7 +222,8 @@ function buildTools(input: AgentInput, emit: Emit, state: AgentState) {
         "that states what the page is. For a return visit, include EXACTLY ONE block per meaningful " +
         "change from assess's `changes`, each with that change's `changeIndex` — never repeat a " +
         "changeIndex (one change is one block). The actual before/after/" +
-        "section facts are filled in automatically from the diff, you only choose the display `type` " +
+        "section facts are filled in automatically from the diff, you only choose the display `type`, " +
+        "write a short `title` (≤6 words) naming WHAT changed (e.g. 'CO₂ reading rose', 'Mission status: delayed'), " +
         "and write the `significance`: a concrete interpretation of WHAT the change indicates (its " +
         "direction + real-world implication), grounded in the before→after — never a restatement " +
         "like 'text changed', a vague 'worth a look', or a comment about refresh rate / data updates.",
@@ -224,6 +234,7 @@ function buildTools(input: AgentInput, emit: Emit, state: AgentState) {
           z.object({
             changeIndex: z.number().nullable(),
             type: BlockTypeSchema,
+            title: z.string().optional().describe("Short (≤6 words) human title naming what changed in this section."),
             significance: z.string(),
           }),
         ),
@@ -258,8 +269,8 @@ deliver_report with an EMPTY blocks array and a summary that plainly states noth
 changed since the last visit — do NOT describe what the page is or list its topics. Otherwise reason about those changes in the \
 context of your past analysis and the page's purpose — optionally call save_analysis to update \
 your understanding — then call deliver_report with one block per meaningful change, each \
-referencing its 'changeIndex', choosing the most fitting block type and writing a concrete, \
-outcome-focused significance line. If changes exist but you judge NONE of them significant, still \
+referencing its 'changeIndex', choosing the most fitting block type, giving a short 'title' \
+(≤6 words) that names what changed, and writing a concrete, outcome-focused significance line. If changes exist but you judge NONE of them significant, still \
 call deliver_report with empty blocks and a summary that says so plainly — e.g. "N changes were \
 detected but none appear significant (…brief reason)". Whenever changes were detected, your summary \
 must be about those changes and your verdict on them — NEVER a generic description of what the page is.
@@ -358,6 +369,7 @@ function fallbackCompare(input: AgentInput): RenderSpec {
   const blocks: RenderBlock[] = changes.map((c) => ({
     type: defaultBlockType(c),
     region: c.region,
+    title: defaultTitle(c),
     section: c.sectionId,
     before: c.before,
     after: c.after,
@@ -401,6 +413,7 @@ function finalizeDelivered(input: AgentInput, state: AgentState): AgentResult | 
     blocks.push({
       type: b.type,
       region: c.region,
+      title: b.title?.trim() || defaultTitle(c),
       section: c.sectionId,
       before: c.before,
       after: c.after,

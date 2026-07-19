@@ -11,7 +11,7 @@ export function ContentChangeBlock({ block }: { block: RenderBlock }) {
       icon={PenLine}
       tone="info"
       region={block.region}
-      section={block.section}
+      title={block.title}
       changeType={block.changeType}
       significance={block.significance}
     >

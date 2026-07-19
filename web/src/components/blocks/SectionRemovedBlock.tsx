@@ -9,7 +9,7 @@ export function SectionRemovedBlock({ block }: { block: RenderBlock }) {
       icon={MinusCircle}
       tone="negative"
       region={block.region}
-      section={block.section}
+      title={block.title}
       changeType={block.changeType}
       significance={block.significance}
     >

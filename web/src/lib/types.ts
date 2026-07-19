@@ -94,6 +94,8 @@ export type BlockType =
 export interface RenderBlock {
   type: BlockType;
   region: RegionName;
+  /** Human title for this change, decided by the agent (e.g. "CO₂ reading rose"). */
+  title: string;
   section: string;
   before: string | null;
   after: string | null;
@@ -134,6 +136,7 @@ export const ChangeItemSchema = z.object({
 export const RenderBlockSchema = z.object({
   type: BlockTypeSchema,
   region: RegionNameSchema,
+  title: z.string(),
   section: z.string(),
   before: z.string().nullable(),
   after: z.string().nullable(),

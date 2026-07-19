@@ -10,7 +10,7 @@ export function CalloutBlock({ block }: { block: RenderBlock }) {
       icon={Megaphone}
       tone="info"
       region={block.region}
-      section={block.section}
+      title={block.title}
       changeType={block.changeType}
       significance={block.significance}
     >

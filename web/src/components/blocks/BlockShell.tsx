@@ -35,7 +35,7 @@ export function BlockShell({
   icon: Icon,
   tone = "neutral",
   region,
-  section,
+  title,
   changeType,
   significance,
   children,
@@ -43,7 +43,7 @@ export function BlockShell({
   icon: LucideIcon;
   tone?: BlockTone;
   region: RegionName;
-  section: string;
+  title: string;
   changeType: string;
   significance: string;
   children: ReactNode;
@@ -63,7 +63,7 @@ export function BlockShell({
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="truncate text-[15px] font-semibold tracking-tight">
-              {/^section-\d+$/.test(section) ? section.replace("section-", "Section ") : section}
+              {title}
             </h3>
             <span
               className={cn(

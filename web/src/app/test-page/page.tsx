@@ -48,15 +48,15 @@ const FINDINGS = [
     img: "/test-media/finding4.jpg",
     fallback: "linear-gradient(135deg,#4338ca,#818cf8)",
     tag: "Atmosphere",
-    text: "Atmospheric methane concentration crossed 1,930 ppb for the first time on record.",
+    text: "Atmospheric methane concentration crossed 1,945 ppb for the first time on record, with the steepest annual jump measured since monitoring began.",
   },
 ];
 
 const STATS = [
-  { label: "Atmospheric CO₂", value: "434.5 ppm", delta: "+4.7 ppm / yr", up: true },
-  { label: "Global temp anomaly", value: "+1.53 °C", delta: "+0.10 °C / yr", up: true },
-  { label: "Arctic sea-ice minimum", value: "3.69 M km²", delta: "−0.45 M km² / yr", up: false },
-  { label: "Global mean sea level", value: "+107.8 mm", delta: "+4.3 mm / yr", up: true },
+  { label: "Atmospheric CO₂", value: "431.8 ppm", delta: "+5.1 ppm / yr", up: true },
+  { label: "Global temp anomaly", value: "+1.68 °C", delta: "+0.15 °C / yr", up: true },
+  { label: "Arctic sea-ice minimum", value: "3.28 M km²", delta: "−0.58 M km² / yr", up: false },
+  { label: "Global mean sea level", value: "+112.5 mm", delta: "+4.7 mm / yr", up: true },
 ];
 
 export default function TestPage() {
@@ -140,11 +140,11 @@ export default function TestPage() {
               <p className="kicker">Mission status</p>
               <h2>Aether-2 stratospheric campaign</h2>
               <p className="lead">
-                The Aether-2 stratospheric balloon campaign is <strong>on schedule</strong>, with the
-                next launch window opening in the coming weeks. All five ground stations are reporting
-                nominal telemetry.
+                The Aether-2 stratospheric balloon campaign is <strong>delayed</strong>: the next
+                launch window has slipped by six weeks after a telemetry fault at two of the five
+                ground stations. Repairs are underway.
               </p>
-              <span className="badge">● On schedule</span>
+              <span className="badge">● Delayed</span>
             </div>
             <div className="photo" style={{ backgroundImage: `url(${MISSION_IMG})` }} />
           </div>
