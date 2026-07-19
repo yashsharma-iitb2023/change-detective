@@ -9,12 +9,13 @@
 // Real content (headline metrics, a list of findings, imagery, sections) so the parser, diff,
 // itemized bullets, and metric-significance all have something to work with.
 //
-// Styling lives in a real external stylesheet (aether.module.css), scoped by Next so its
-// generic selectors don't leak into the rest of the app. Images are self-hosted under
-// /public/test-media (originally from Unsplash), so the app's strict CSP (img-src 'self')
-// serves them. Each still has a gradient fallback behind it.
+// Styling lives in a real external stylesheet (aether.css), namespaced under `.site` so it can't
+// leak into the rest of the app. Class names on the elements are kept STABLE and semantic on
+// purpose — this page is scraped and diffed, and stable class names stop a formatting change from
+// being mis-read as a content change. Images are self-hosted under /public/test-media (originally
+// from Unsplash), so the app's strict CSP (img-src 'self') serves them; each has a gradient fallback.
 
-import styles from "./aether.module.css";
+import "./aether.css";
 
 export const metadata = {
   title: "Aether Station — Earth Systems Observatory",
@@ -60,12 +61,12 @@ const STATS = [
 
 export default function TestPage() {
   return (
-    <div className={styles.site}>
-      <header className={styles.nav}>
-        <a className={styles.brand} href="/test-page">
-          <span className={styles.dot} /> Aether Station
+    <div className="site">
+      <header className="nav">
+        <a className="brand" href="/test-page">
+          <span className="dot" /> Aether Station
         </a>
-        <nav className={styles.links}>
+        <nav className="links">
           <a href="/test-page">Indicators</a>
           <a href="/test-page">Findings</a>
           <a href="/test-page">Mission</a>
@@ -73,17 +74,17 @@ export default function TestPage() {
         </nav>
       </header>
 
-      <div className={styles.hero} style={{ backgroundImage: `url(${HERO_IMG})` }}>
-        <div className={styles.overlay}>
-          <div className={styles.wrap}>
-            <div className={styles.inner}>
-              <p className={styles.eyebrow}>Earth Systems Observatory</p>
+      <div className="hero" style={{ backgroundImage: `url(${HERO_IMG})` }}>
+        <div className="overlay">
+          <div className="wrap">
+            <div className="inner">
+              <p className="eyebrow">Earth Systems Observatory</p>
               <h1>Watching the planet's vital signs, in near real time.</h1>
               <p>
                 Aether Station tracks the climate indicators and research that shape our understanding
                 of a changing Earth — updated every monitoring cycle.
               </p>
-              <a className={styles.cta} href="/test-page">
+              <a className="cta" href="/test-page">
                 Explore the latest readings →
               </a>
             </div>
@@ -92,39 +93,39 @@ export default function TestPage() {
       </div>
 
       <main>
-        <section className={styles.block}>
-          <div className={styles.wrap}>
-            <p className={styles.kicker}>Key climate indicators</p>
+        <section className="block">
+          <div className="wrap">
+            <p className="kicker">Key climate indicators</p>
             <h2>This cycle's headline readings</h2>
-            <p className={styles.lead}>
+            <p className="lead">
               Averaged over the most recent monitoring cycle, shown against the prior 12 months.
             </p>
-            <div className={styles.stats}>
+            <div className="stats">
               {STATS.map((s) => (
-                <div className={styles.stat} key={s.label}>
-                  <p className={styles.label}>{s.label}</p>
-                  <div className={styles.value}>{s.value}</div>
-                  <div className={`${styles.delta} ${s.up ? styles.up : styles.down}`}>{s.delta}</div>
+                <div className="stat" key={s.label}>
+                  <p className="label">{s.label}</p>
+                  <div className="value">{s.value}</div>
+                  <div className={`delta ${s.up ? "up" : "down"}`}>{s.delta}</div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className={styles.block}>
-          <div className={styles.wrap}>
-            <p className={styles.kicker}>Latest findings</p>
+        <section className="block">
+          <div className="wrap">
+            <p className="kicker">Latest findings</p>
             <h2>Fresh from the field</h2>
-            <p className={styles.lead}>Notable research and observations reported this cycle.</p>
-            <div className={styles.cards}>
+            <p className="lead">Notable research and observations reported this cycle.</p>
+            <div className="cards">
               {FINDINGS.map((f) => (
-                <article className={styles.card} key={f.text}>
+                <article className="card" key={f.text}>
                   <div
-                    className={styles.thumb}
+                    className="thumb"
                     style={{ background: `${f.fallback}`, backgroundImage: `url(${f.img})` }}
                   />
-                  <div className={styles.body}>
-                    <span className={styles.tag}>{f.tag}</span>
+                  <div className="body">
+                    <span className="tag">{f.tag}</span>
                     <p>{f.text}</p>
                   </div>
                 </article>
@@ -133,26 +134,26 @@ export default function TestPage() {
           </div>
         </section>
 
-        <section className={styles.block}>
-          <div className={`${styles.wrap} ${styles.mission}`}>
+        <section className="block">
+          <div className="wrap mission">
             <div>
-              <p className={styles.kicker}>Mission status</p>
+              <p className="kicker">Mission status</p>
               <h2>Aether-2 stratospheric campaign</h2>
-              <p className={styles.lead}>
+              <p className="lead">
                 The Aether-2 stratospheric balloon campaign is <strong>on schedule</strong>, with the
                 next launch window opening in the coming weeks. All five ground stations are reporting
                 nominal telemetry.
               </p>
-              <span className={styles.badge}>● On schedule</span>
+              <span className="badge">● On schedule</span>
             </div>
-            <div className={styles.photo} style={{ backgroundImage: `url(${MISSION_IMG})` }} />
+            <div className="photo" style={{ backgroundImage: `url(${MISSION_IMG})` }} />
           </div>
         </section>
       </main>
 
-      <footer className={styles["site-footer"]}>
-        <div className={styles.wrap}>
-          <div className={styles.cols}>
+      <footer className="site-footer">
+        <div className="wrap">
+          <div className="cols">
             <div>
               <h4>Aether Station</h4>
               <p style={{ margin: 0, maxWidth: 320 }}>
@@ -173,7 +174,7 @@ export default function TestPage() {
               <a href="/test-page">Contact</a>
             </div>
           </div>
-          <div className={styles.fine}>© 2026 Aether Station · Educational demo · All figures illustrative.</div>
+          <div className="fine">© 2026 Aether Station · Educational demo · All figures illustrative.</div>
         </div>
       </footer>
     </div>
