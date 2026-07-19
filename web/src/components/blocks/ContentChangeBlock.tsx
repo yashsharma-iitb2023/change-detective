@@ -1,10 +1,11 @@
 import { PenLine } from "lucide-react";
 import type { RenderBlock } from "@/lib/types";
-import { BeforeAfter, BlockShell, ChangeItems } from "./BlockShell";
+import { BeforeAfter, BlockShell, ChangeItems, ChangeView } from "./BlockShell";
 
 export function ContentChangeBlock({ block }: { block: RenderBlock }) {
-  // When the diff produced a per-entry breakdown, show one-line bullets and tuck the raw
-  // before/after behind a toggle; otherwise fall back to the full before/after panes.
+  // A list-shaped change shows one-line bullets (the diff already itemized it), with the raw
+  // before/after one click away; anything else shows the shared before→after view — the same
+  // representation a figure change gets.
   const hasItems = !!block.items?.length;
   return (
     <BlockShell
@@ -21,7 +22,7 @@ export function ContentChangeBlock({ block }: { block: RenderBlock }) {
           <BeforeAfter before={block.before} after={block.after} collapsible />
         </>
       ) : (
-        <BeforeAfter before={block.before} after={block.after} />
+        <ChangeView before={block.before} after={block.after} />
       )}
     </BlockShell>
   );

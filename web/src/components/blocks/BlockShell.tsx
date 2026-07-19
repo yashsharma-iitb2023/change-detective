@@ -1,4 +1,5 @@
-import type { LucideIcon } from "lucide-react";
+import { diffWords } from "diff";
+import { ArrowRight, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/components/cn";
 import { Markdown } from "@/components/Markdown";
@@ -150,5 +151,60 @@ export function BeforeAfter({
       </summary>
       <div className="mt-3">{panes}</div>
     </details>
+  );
+}
+
+// Above this length (either side) a value is prose, not a scalar, so the crisp centered
+// transition would wrap badly — we show an inline word diff instead. Length-driven, not
+// content-specific: nothing here knows what page or field it's looking at.
+const SCALAR_MAX = 60;
+
+/** Removed words struck through, added words highlighted, unchanged in flow — one reading, like the scalar arrow but for prose. */
+function InlineWordDiff({ before, after }: { before: string; after: string }) {
+  return (
+    <p className="text-[14px] leading-6 break-words">
+      {diffWords(before, after).map((part, i) =>
+        part.added ? (
+          <span key={i} className="rounded bg-accent/15 px-0.5 text-accent">{part.value}</span>
+        ) : part.removed ? (
+          <span key={i} className="text-red-600/80 line-through decoration-1 dark:text-red-400/80">{part.value}</span>
+        ) : (
+          <span key={i} className="text-foreground/80">{part.value}</span>
+        ),
+      )}
+    </p>
+  );
+}
+
+/**
+ * The one before→after representation, shared by every value change (figure OR text). It adapts
+ * to the SHAPE of the change, not the kind of page: a short scalar renders as the crisp
+ * "before → after" arrow (how figures already read); longer prose renders as an inline word diff
+ * so the actual edit pops, with the full before/after panes kept one click away.
+ */
+export function ChangeView({ before, after }: { before: string | null; after: string | null }) {
+  const b = before ?? "";
+  const a = after ?? "";
+  const scalar = b.length <= SCALAR_MAX && a.length <= SCALAR_MAX;
+
+  if (scalar) {
+    return (
+      <div className="flex flex-wrap items-center justify-center gap-4 rounded-xl bg-accent/[0.06] py-4">
+        <span className="text-xl font-semibold tabular-nums text-muted line-through decoration-muted/50">
+          {before ?? "—"}
+        </span>
+        <ArrowRight size={18} className="text-accent" />
+        <span className="text-xl font-semibold tabular-nums text-accent">{after ?? "—"}</span>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="sunken max-h-72 overflow-auto rounded-xl p-3">
+        <InlineWordDiff before={b} after={a} />
+      </div>
+      <BeforeAfter before={before} after={after} collapsible />
+    </>
   );
 }
