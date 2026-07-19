@@ -45,8 +45,8 @@ Next.js route handler ──►  Python scraper (FastAPI + Playwright)   render 
 ```
 
 Two processes: a **Next.js + TypeScript** app (UI, orchestration, agent, DB) and a **Python +
-Playwright** scraper. Full component and data-contract detail is in [`PRD.md`](PRD.md) and
-[`TRD.md`](TRD.md).
+Playwright** scraper. Component responsibilities and the data contracts are detailed in the
+sections below.
 
 ### Key decisions (and why)
 
@@ -193,7 +193,6 @@ web/
   src/lib/            types (shared contract), parser, db (+ page_memory), diff, limits
   src/agent/          agent (tool-calling loop + deterministic fallback)
                       model (LLM layer: OpenAI-compatible + Google-native providers, failover API)
-PRD.md TRD.md   design & requirements docs
 ```
 
 Built with Next.js, the Vercel AI SDK (tool-calling agent), a provider-agnostic LLM layer with
