@@ -33,7 +33,7 @@
 
 .site .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
 .site .stat { border:1px solid #e9ecf2; border-radius:14px; padding:20px; background:#fbfcfe; }
-.site .stat .label { font-size:13px; color:#6b7280; margin:0 0 10px; }
+.site .stat .label { font-size:13px; font-weight:400; color:#6b7280; margin:0 0 10px; }
 .site .stat .value { font-size:30px; font-weight:700; letter-spacing:-0.02em; font-variant-numeric:tabular-nums; }
 .site .stat .delta { font-size:13px; font-weight:600; margin-top:8px; }
 .site .stat .delta.up { color:#b91c1c; } .site .stat .delta.down { color:#047857; }

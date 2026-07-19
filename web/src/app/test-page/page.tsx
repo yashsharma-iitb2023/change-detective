@@ -36,7 +36,7 @@ const FINDINGS = [
     img: "/test-media/finding2.jpg",
     fallback: "linear-gradient(135deg,#0891b2,#a5f3fc)",
     tag: "Cryosphere",
-    text: "Retreat of the Antarctic Thwaites Glacier accelerated by 12% over the past decade, revising sea-level projections upward.",
+    text: "Retreat of the Antarctic Thwaites Glacier accelerated by 18% over the past decade, and new radar surveys show the grounding line has retreated a further 4 km inland.",
   },
   {
     img: "/test-media/finding3.jpg",
@@ -53,10 +53,10 @@ const FINDINGS = [
 ];
 
 const STATS = [
-  { label: "Atmospheric CO₂", value: "431.8 ppm", delta: "+5.1 ppm / yr", up: true },
-  { label: "Global temp anomaly", value: "+1.68 °C", delta: "+0.15 °C / yr", up: true },
-  { label: "Arctic sea-ice minimum", value: "3.28 M km²", delta: "−0.58 M km² / yr", up: false },
-  { label: "Global mean sea level", value: "+112.5 mm", delta: "+4.7 mm / yr", up: true },
+  { label: "Atmospheric CO₂", value: "441.0 ppm", delta: "+5.8 ppm / yr", up: true },
+  { label: "Global temp anomaly", value: "+1.82 °C", delta: "+0.19 °C / yr", up: true },
+  { label: "Arctic sea-ice minimum", value: "3.05 M km²", delta: "−0.63 M km² / yr", up: false },
+  { label: "Global mean sea level", value: "+118.9 mm", delta: "+5.2 mm / yr", up: true },
 ];
 
 export default function TestPage() {
@@ -103,7 +103,9 @@ export default function TestPage() {
             <div className="stats">
               {STATS.map((s) => (
                 <div className="stat" key={s.label}>
-                  <p className="label">{s.label}</p>
+                  {/* h3 (not <p>) so the parser splits each metric into its own section —
+                      giving the agent one titled change block per metric, not one lumped stats block. */}
+                  <h3 className="label">{s.label}</h3>
                   <div className="value">{s.value}</div>
                   <div className={`delta ${s.up ? "up" : "down"}`}>{s.delta}</div>
                 </div>
@@ -140,11 +142,11 @@ export default function TestPage() {
               <p className="kicker">Mission status</p>
               <h2>Aether-2 stratospheric campaign</h2>
               <p className="lead">
-                The Aether-2 stratospheric balloon campaign is <strong>delayed</strong>: the next
-                launch window has slipped by six weeks after a telemetry fault at two of the five
-                ground stations. Repairs are underway.
+                The Aether-2 stratospheric balloon campaign has <strong>launched successfully</strong>:
+                the balloon reached its target altitude of 38 km and all five ground stations are now
+                receiving nominal telemetry. First science data is expected within days.
               </p>
-              <span className="badge">● Delayed</span>
+              <span className="badge">● In flight</span>
             </div>
             <div className="photo" style={{ backgroundImage: `url(${MISSION_IMG})` }} />
           </div>
