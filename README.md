@@ -116,15 +116,18 @@ SCRAPER_URL=http://127.0.0.1:7788
 ./dev.sh          # starts the scraper (:7788) + web app (:5050); Ctrl-C stops both
 ```
 
-First time only (installs deps):
-```bash
-cd web && npm install && cd ..
-python3 -m venv scraper/.venv
-scraper/.venv/bin/pip install -r scraper/requirements.txt
-scraper/.venv/bin/python -m playwright install chromium
-```
+**No manual setup.** On first run `dev.sh` bootstraps everything it needs — installs the web
+dependencies, creates the Python venv and installs the scraper's requirements, and downloads
+Playwright's Chromium — then starts both servers. It's idempotent: subsequent runs skip straight
+to starting up. All you need on the machine is **Node 20+** and **Python 3.11+**.
 
-Prefer two terminals? `scraper/.venv/bin/python scraper/app.py` and `cd web && npm run dev`.
+Prefer two terminals (and to install deps yourself)?
+```bash
+cd web && npm install                                   # web
+python3 -m venv scraper/.venv && scraper/.venv/bin/pip install -r scraper/requirements.txt
+scraper/.venv/bin/python -m playwright install chromium # scraper browser
+# then: scraper/.venv/bin/python scraper/app.py   and   cd web && npm run dev
+```
 
 Open http://localhost:5050, enter a URL, Run. The **first** run has the agent analyse the page and
 remember what it is; run it **again** (after the page changes) to get the change report reasoned in
