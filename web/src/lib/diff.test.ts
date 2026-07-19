@@ -119,6 +119,36 @@ test("itemizes a changed list section into added/removed/updated entries", () =>
   assert.ok(!ops.includes("updated") || change!.items!.every((i) => !/Alpha/.test(i.text))); // Alpha only renumbered -> unchanged
 });
 
+test("itemizes a card/feed section (blank-line blocks, no list markers) per entry", () => {
+  // A repeated-item section that renders as label + text blocks (like a card grid), not a md list.
+  const before = [
+    "Notable research reported this cycle.",
+    "Astronomy",
+    "A biosignature hint was found on K2-18 b.",
+    "Atmosphere",
+    "Methane crossed 1,945 ppb for the first time.",
+  ].join("\n\n");
+  const after = [
+    "Notable research reported this cycle.",
+    "Astronomy",
+    "A biosignature hint was found on K2-18 b.", // unchanged
+    "Atmosphere",
+    "Methane crossed 1,962 ppb for the first time.", // edited inside the card -> update
+    "Biosphere",
+    "The Amazon basin was confirmed as a net carbon source.", // inserted card -> add
+  ].join("\n\n");
+
+  const prev = snapshot(region([]), region([{ id: "section-0", heading: "Findings", text: before }]), region([]));
+  const cur = snapshot(region([]), region([{ id: "section-0", heading: "Findings", text: after }]), region([]));
+  const change = diffSnapshots(prev, cur, scope).changes.find((c) => c.kind === "content");
+
+  assert.ok(change?.items, "expected itemized breakdown for a card feed");
+  assert.ok(change!.items!.some((i) => i.op === "added" && /Amazon/.test(i.text)), "inserted card -> added");
+  assert.ok(change!.items!.some((i) => i.op === "updated" && /1,962/.test(i.text)), "edited card -> updated");
+  // the whole section must NOT be re-shown: the unchanged Astronomy card produces no item
+  assert.ok(change!.items!.every((i) => !/K2-18/.test(i.text)), "unchanged card is not reported");
+});
+
 test("enforces the 2000-char truncation cap and 20-change cap", () => {
   const longText = "x".repeat(5000);
   const prevSections = [];

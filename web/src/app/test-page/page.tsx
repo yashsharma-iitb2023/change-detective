@@ -48,15 +48,21 @@ const FINDINGS = [
     img: "/test-media/finding4.jpg",
     fallback: "linear-gradient(135deg,#4338ca,#818cf8)",
     tag: "Atmosphere",
-    text: "Atmospheric methane concentration crossed 1,945 ppb for the first time on record, with the steepest annual jump measured since monitoring began.",
+    text: "Atmospheric methane concentration crossed 1,962 ppb for the first time on record, with the steepest annual jump measured since monitoring began.",
+  },
+  {
+    img: "/test-media/finding1.jpg",
+    fallback: "linear-gradient(135deg,#7c3aed,#c4b5fd)",
+    tag: "Biosphere",
+    text: "The Amazon basin was confirmed as a net carbon source for the second consecutive year, as drought-driven fires outpaced regrowth across the southern rainforest.",
   },
 ];
 
 const STATS = [
-  { label: "Atmospheric CO₂", value: "441.0 ppm", delta: "+5.8 ppm / yr", up: true },
-  { label: "Global temp anomaly", value: "+1.82 °C", delta: "+0.19 °C / yr", up: true },
-  { label: "Arctic sea-ice minimum", value: "3.05 M km²", delta: "−0.63 M km² / yr", up: false },
-  { label: "Global mean sea level", value: "+118.9 mm", delta: "+5.2 mm / yr", up: true },
+  { label: "Atmospheric CO₂", value: "445.7 ppm", delta: "+6.0 ppm / yr", up: true },
+  { label: "Global temp anomaly", value: "+1.91 °C", delta: "+0.21 °C / yr", up: true },
+  { label: "Arctic sea-ice minimum", value: "2.88 M km²", delta: "−0.67 M km² / yr", up: false },
+  { label: "Global mean sea level", value: "+124.3 mm", delta: "+5.6 mm / yr", up: true },
 ];
 
 export default function TestPage() {
@@ -142,11 +148,11 @@ export default function TestPage() {
               <p className="kicker">Mission status</p>
               <h2>Aether-2 stratospheric campaign</h2>
               <p className="lead">
-                The Aether-2 stratospheric balloon campaign has <strong>launched successfully</strong>:
-                the balloon reached its target altitude of 38 km and all five ground stations are now
-                receiving nominal telemetry. First science data is expected within days.
+                The Aether-2 stratospheric campaign has <strong>completed its flight</strong> and
+                recovered the payload intact. Preliminary analysis of the stratospheric aerosol
+                samples is now underway, with a first data release expected next month.
               </p>
-              <span className="badge">● In flight</span>
+              <span className="badge">● Data in review</span>
             </div>
             <div className="photo" style={{ backgroundImage: `url(${MISSION_IMG})` }} />
           </div>
