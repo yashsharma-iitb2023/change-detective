@@ -15,13 +15,11 @@ is the product.
 
 ## Demo
 
-<!-- PASTE THE DEMO VIDEO LINK ON THE LINE BELOW.
-     Edit this README on github.com, drag `demo.mp4` (repo root, ~8MB) into the editor,
-     and GitHub replaces the drop with a https://github.com/user-attachments/assets/… URL
-     that renders as an inline player. Put that URL on its own line here.
-     (Alternative: a linked thumbnail to a YouTube/Loom clip.) -->
 
-_Demo video coming soon._
+
+https://github.com/user-attachments/assets/69a7105f-b1d2-429d-abb5-7a9d2d6c2035
+
+
 
 ---
 
